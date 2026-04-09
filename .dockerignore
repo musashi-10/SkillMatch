@@ -1,0 +1,9 @@
+venv
+.git
+__pycache__
+*.pyc
+.env
+auth.db
+jobs.db
+*.db-journal
+.pytest_cache

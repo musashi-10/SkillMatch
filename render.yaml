@@ -1,0 +1,17 @@
+# Render: New → Blueprint → select repo (free tier; add paid disk for durable SQLite)
+
+services:
+  - type: web
+    name: skillmatch
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /docs
+    envVars:
+      - key: SKILLMATCH_DATA_DIR
+        value: /app/data
+      - key: JWT_SECRET
+        generateValue: true
+      - key: APP_URL
+        sync: false
