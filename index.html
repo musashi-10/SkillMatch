@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="skillmatch-api-base" content=""/>
+<meta name="skillmatch-api-base" content="https://skillmatch-njuf.onrender.com"/>
 <title>SkillMatch · AI Job Recommender</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
@@ -85,12 +85,20 @@ const { useState, useEffect, useCallback, useRef } = React;
 const API = (() => {
   const el = document.querySelector('meta[name="skillmatch-api-base"]');
   const raw = el ? el.getAttribute("content") : null;
-  if (raw !== null && raw.trim() !== "") return raw.trim();
-  const h = window.location.hostname;
-  if (!h || h === "localhost" || h === "127.0.0.1") return "http://127.0.0.1:8000";
-  return "";
-})();
 
+  // ✅ If explicitly set (production)
+  if (raw && raw.trim() !== "") {
+    return raw.trim();
+  }
+
+  // ✅ Local development
+  if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+    return "http://127.0.0.1:8000";
+  }
+
+  // ✅ Default → same origin (Render)
+  return window.location.origin;
+})();
 // ── API helpers ───────────────────────────────────────────────────────────────
 async function apiFetch(path, opts = {}) {
   try {
