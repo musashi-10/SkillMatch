@@ -19,57 +19,30 @@ For recruiters, it provides a dashboard to post new jobs and view incoming appli
 
 ## Prerequisites
 
-Before running the application, make sure you have:
-- **Python 3.8+** installed
-- **pip** (Python package installer)
+- Python 3.8+
+- pip
 
 ## Installation
 
-1. **Clone the repository** (or download and extract the files).
-2. **Navigate** to the project directory:
-   ```bash
-   cd job_recommend
-   ```
-3. **Install the dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+cd job_recommend  
+pip install -r requirements.txt  
 
 ## GitHub & Render
 
-See **[DEPLOY.md](./DEPLOY.md)** to push the repo and deploy with **`render.yaml`** (Docker). With `uvicorn` or Docker, open **`/`** for the web UI (same host as the API).
+See DEPLOY.md for deployment steps.
 
-## Setup (Optional but recommended)
+## Setup
 
-If you haven't yet, you might need to seed the initial jobs database. You can do this by running:
-```bash
-python new_create_db.py
-```
-This will generate the `jobs.db` database and populate it with sample open positions.
+python new_create_db.py  
 
-## Running the Application
+## Run
 
-This project consists of two servers: a **FastAPI backend** and a **Streamlit frontend**. You can start them both simultaneously using the provided runner script.
+python run.py  
 
-**To run the entire app:**
-```bash
-python run.py
-```
+OR manually:
 
-This will automatically open your web browser to `http://localhost:8501`.
+Backend:
+uvicorn main12:app --host 127.0.0.1 --port 8000 --reload  
 
-### Running Manually
-If you prefer not to use `run.py`, you can run the backend and frontend in two separate terminal windows:
-
-**Terminal 1: Start the Backend (FastAPI)**
-```bash
-uvicorn main12:app --host 127.0.0.1 --port 8000 --reload
-```
-
-**Terminal 2: Start the Frontend (Streamlit)**
-```bash
-streamlit run app.py
-```
-
-## Email functionality (Developer Mode)
-If you do not configure an `SMTP_USER` and `SMTP_PASS` in your environment, the app runs in **Developer Mode**. During the Job Application process, the application will print "emails" directly to Terminal 1 (your FastAPI console) instead of actually sending them across the internet.
+Frontend:
+streamlit run app.py  
